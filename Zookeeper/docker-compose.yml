@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zk-data:/var/lib/zookeeper/data
+      - zk-logs:/var/lib/zookeeper/log
+
+  # ZooKeeper Navigator UI — browse the ZNode tree in a browser
+  zknavigator:
+    image: elkozmon/zoonavigator:latest
+    container_name: zoonavigator
+    ports:
+      - "9000:9000"
+    environment:
+      HTTP_PORT: 9000
+    depends_on:
+      - zookeeper
+
+volumes:
+  zk-data:
+  zk-logs:

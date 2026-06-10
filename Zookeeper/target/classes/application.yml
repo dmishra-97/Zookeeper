@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: zookeeper-patterns
+
+zookeeper:
+  connect-string: localhost:2181
+  session-timeout-ms: 10000
+  connection-timeout-ms: 5000
+  retry:
+    base-sleep-ms: 1000
+    max-retries: 3
+
+# Each pattern's root ZNode path
+zk-paths:
+  leader-election: /patterns/leader-election
+  distributed-lock: /patterns/distributed-lock
+  service-registry: /patterns/services
+  config: /patterns/config
+  barrier: /patterns/barrier
+  counter: /patterns/counter
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
